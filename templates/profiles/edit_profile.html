@@ -1,0 +1,12 @@
+{% extends "sellers/profile.html" %}
+{% block title %}Edit Your Profile{% endblock %}
+{% block content %}
+<h1>Edit Your Profile:</h1>
+<form action="." method="POST">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+<tr><td colspan="2" align="right"><input type="submit" value="EDIT" style="color: white;" /></td></tr>
+</table>
+</form>
+{% endblock %}

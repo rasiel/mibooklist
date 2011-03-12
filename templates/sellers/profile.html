@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}.{% endblock %}
+{% block menu %}
+<div style="margin-top: 10px;">
+<a href="/accounts/books/">My Book List</a> | <a href="/profiles/{{ user.username }}">My Account</a> |
+<a href="/profiles/edit/">Edit Account</a> | <a href="/books/add/">Add Book</a> |
+<a href="/support/">Support</a> | <a href="/accounts/delete/{{ user.id }}/">Delete Account</a> |
+<a href="/accounts/logout/">Logout</a>
+</div>
+{% endblock %}
+{% block content %}
+<h1>Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}, you have {{ book_count }} books listed.</h1>
+{% ifequal seller.account_status 'PV' %}
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">Your Account is
+pending validation. Please send us your payment information to payments@mibooklist.com if you have made your payment.</div>
+</div>
+<br />
+{% endifequal %}
+{% ifequal seller.account_status 'PP' %}
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">
+Your Account is <strong>pending payment</strong>. 
+Please make your payment.
+</div>
+</div>
+<br />
+{% endifequal %}
+{% ifequal seller.payment_option 'GC' %}
+<div class="ui-widget">
+<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
+You selected <strong>Google Checkout</strong>. 
+Payment link goes here.
+</div>
+</div>
+<br />
+{% else %}
+<div class="ui-widget">
+<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
+You selected <strong>Local Bank Deposit</strong>. 
+Local Bank Information Goes here.
+</div>
+</div>
+<br />
+{% endifequal %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "sellers/profile.html" %}
+{% block title %}{{ profile.user.username }} Profile{% endblock %}
+{% block content %}
+<h1>Your Profile:</h1>
+<table width="100%">
+<tr><td>Username:<td><td>{{ profile.user.username }}</td></tr>
+<tr><td>Email Address:</td><td>{{ profile.user.email }}</td></tr>
+<tr><td>Screen Name:</td><td>{{ profile.screen_name }}</td></tr>
+<tr><td>Location:</td><td>{{ profile.location }}</td></tr>
+<tr><td>Home Number:</td><td>{{ profile.home_number }} 
+Is Hidden? {% if profile.hide_phone %}Yes{% else %}No{% endif %}</td></tr>
+<tr><td>Cellular Number:</td><td>{{ profile.cellular_number }}
+Is Hidden? {% if profile.hide_cellular %}Yes{% else %}No{% endif %}
+</td></tr>
+<tr><td>Signup Date:</td><td>{{ profile.signup_date|date:"d M Y"}}</td></tr>
+<tr><td>Account Status:</td><td>{{profile.get_account_status_display}}</td></tr>
+<tr><td>Payment Option:</td><td>{{ profile.get_payment_option_display}}</td></tr>
+</table>
+{% endblock %}

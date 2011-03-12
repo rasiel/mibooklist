@@ -1,0 +1,11 @@
+{% extends "sellers/profile.html" %}
+{% block title %}Delete book{% endblock %}
+{% block content %}
+<h1>Delete Book: {{ object.title }}?</h1>
+<form action="." enctype="multipart/form-data" method="POST">
+{% csrf_token %}
+<table style="margin-left: 20px;">
+<tr><td colspan="2" align="right"><input type="submit" value="Delete Book" class="rounded-corners" style="color: white;" /></td></tr>
+</table>
+</form>
+{% endblock %}

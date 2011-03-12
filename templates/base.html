@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link href="/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/static/css/layout.css" rel="stylesheet" type="text/css">
+<link type="text/css" href="/static/js/jquery-ui/css/custom-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet" />	
+<script type="text/javascript" src="/static/js/jquery-1.5.1.min.js"></script> 
+<script type="text/javascript" src="/static/js/jquery-ui/js/jquery-ui-1.8.10.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.pngFix.js"></script>
+<script type="text/javascript" src="/static/js/controls.js"></script>
+<script type="text/javascript"> 
+  $(document).ready(function(){ 
+    $(document).pngFix(); 
+    $('#advanced_search').dialog({
+      autoOpen: false,
+      modal: true,
+      width: 600      
+    });
+				
+    // Dialog Link
+    $('#dialog_link').click(function(){
+      $('#advanced_search').dialog('open');
+      return false;
+    });
+  }); 
+  // Dialog			
+  
+</script>
+<title>{% block title %}miBookList.com{% endblock %}</title>
+{% block extra_hd %}
+{% endblock %}
+</head>
+
+<body>
+<div id="wrapper" class="rounded-corners">
+  <div id="hd_1">
+    <a href="/" title="Home"><img src="/static/design_art/logo.png" border="0" /></a>
+    <form action="/search/" id="search_form" method="POST">
+    {% csrf_token %}
+    <table>
+    <tr><td><input type="text" name="searchterm" id="keyword" class="rounded-corners" value="156 available book titles ..." /><br /><a href="javascript:null;" id="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search" /></button></td></tr>   
+    </table> 
+    </form>
+  </div>
+  <div id="hd_2">
+  {% block login %}
+  {% if user.is_authenticated %}
+  <h2 style="margin-left: 20px">Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}.</h2>
+  <div class="green_button rounded-corners" style="margin-left:20px;width: 175px">
+  <span><a href="/accounts/profile/">My Account Status</a></span>
+  </div>
+  <div class="green_button rounded-corners" style="margin-left:20px;width: 175px">
+  <span><a href="/accounts/logout/">Logout</a></span>
+  </div>
+  {% else %}
+    <h2>Seller Login:</h2>  
+    <form method="post" action="/accounts/login/"> 
+{% csrf_token %}
+<table> 
+<tr> 
+    <td><label for="id_username">Username</label></td> 
+    <td><input id="id_username" type="text" name="username" class="rounded-corners" maxlength="30" /></td> 
+</tr> 
+<tr> 
+    <td><label for="id_password">Password</label></td> 
+    <td><input type="password" name="password" class="rounded-corners" id="id_password" /></td> 
+</tr> 
+<tr>
+      <td></td>
+      <td align="right"><input type="submit" value="LOGIN" style="color: white;" /></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td align="right"><a href="/accounts/register/" class="blue">SIGNUP</a> | <a href="/accounts/password/reset/" style="float: right;margin-right: 5px;">Forgot Password?</a></td>
+    </tr>
+</table> 
+ <input type="hidden" name="next" value="" /> 
+</form> 
+{% endif %}
+{% endblock %}
+  </div>
+  <div id="menu_cont">
+    <div id="menu">
+    {% block menu %}
+      <span>Today is: {{ date|date:"F dS Y" }}</span>
+    {% endblock %}  
+    </div>
+    <div id="menu_rt"></div>
+  </div>
+  <div id="content_wrapper{% block wrapper_suffix %}{% endblock %}" class="rounded-corners">
+  {% block content %}
+    <div class="green_button rounded-corners" style="width: 200px"><span>New Additions!</span> <img src="/static/design_art/grn_thumb_icon.png" style="border: 0;" /></div>
+    <br />
+    <table id="list" cellpadding="10" cellspacing="10" border="0">
+    {% if books %}
+    <tr>
+    {% for book in books %}
+      <td width="33%"><a href="{{ book.get_absolute_url}}" title="{{ book.title }}" ><img src="{% if book.image %}{{ book.image.get_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif %}" border="0"  /></a> <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
+        <p>{{ book.description|striptags|truncatewords:"15"}} &nbsp;&nbsp;<a href="{{ book.get_absolute_url }}">view</a></p>      
+      </td>
+      {% if forloop.counter|divisibleby:3 %}
+      </tr>
+      <tr><td colspan="3"><p>&nbsp;</p></td></tr>
+      <tr>
+      {% endif %}
+    {% endfor %}
+      </tr>
+    {% else %}
+     <tr><td><div class="error">Sorry, no latest additions right now, please come back soon.</div></td></tr>
+    {% endif %}
+    </table>
+  {% endblock %}  
+  </div>
+  <div id="footer_cont">
+  <div id="footer_lft"></div>
+    <div id="footer">
+    <table width="98%" style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
+    <tr>
+      <td><a href="/pages/terms/">Terms of Use</a> ||  <a href="/pages/your-safety/">Your Safety</a> || <a href="/pages/avoid-scams/">Avoid Scams</a>
+      || <a href="/pages/about/">About what we do</a> || <a href="/pages/disclaimer/">Disclaimer</a></td>
+      <td align="right" style="text-align: right;">Copyright &copy; 2011 miBookList.com || <a href="mailto: info@mibooklist.com">info@miBookList.com</a></td>
+      </tr>
+    </table>
+    </div>
+  </div>
+</div>
+<div id="advanced_search" title="Advanced Book Search">
+<form action="/advanced_search/" id="advanced_search_form" method="POST">
+{% csrf_token %}
+<table cellpadding="4" cellspacing="4">
+<tr>
+<td>Title</td>
+<td><input type="text" name="a_title" id="a_title" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>Author</td>
+<td><input type="text" name="a_author" id="a_author" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>Publisher</td>
+<td><input type="text" name="a_publisher" id="a_publisher" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>School</td>
+<td><input type="text" name="a_school" id="a_school" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>Subject</td>
+<td><input type="text" name="a_subject" id="a_subject" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>Revision</td>
+<td><input type="text" name="a_revision" id="a_revision" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>Edition</td>
+<td><input type="text" name="a_edition" id="a_edition" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td>ISBN #</td>
+<td><input type="text" name="a_isbn" id="a_isbn" class="rounded-corners" value="" /></td>
+</tr>
+<tr>
+<td colspan="2" align="right"><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="advanced_search_button" /></button></td></tr>   
+</table> 
+</form>
+</div>
+</body>
+</html>

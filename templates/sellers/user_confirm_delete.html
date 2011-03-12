@@ -1,0 +1,19 @@
+{% extends "sellers/profile.html" %}
+{% block title %}Delete User Account{% endblock %}
+{% block content %}
+<h1>Delete Account for user : {{ object.username }}?</h1>
+<br />
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">
+<strong>Please Note that this will delete your account with all associated records,
+this is undoable and all your data will be lost</strong>
+</div>
+</div>
+<br />
+<form action="." enctype="multipart/form-data" method="POST">
+{% csrf_token %}
+<table style="margin-left: 20px;">
+<tr><td colspan="2" align="right"><input type="submit" value="Delete User FOREVER" class="rounded-corners" style="color: white;" /></td></tr>
+</table>
+</form>
+{% endblock %}

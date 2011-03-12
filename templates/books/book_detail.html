@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Books Listings - miBookList.com{% endblock %}
+{% block menu %}{% endblock %}
+{% block content %}
+    <table width="100%">
+    <tr><td><h1>{{ object.title }}</h1></td>
+    <td align="right"><div class="green_button rounded-corners" style="width: 100px"><span><a href="javascript:null()" onclick="javascript:history.go(-1) ;">Go Back <<</a></span></div></td>
+    </tr>
+    </table>
+    <p><img src="{% if object.image %}{{ object.image.get_display_url }}{% else %}/static/design_art/no_cover_big.jpg{% endif %}" /> {{ object.description|striptags }}</p>
+    <h2>Book Information: </h2>
+    <table width="80%" align="center" cellpadding="4" cellspacing="4">
+    <tr>
+      <td class="green">Posted by:</td><td> {{ object.seller.user.username }}</td>
+      <td class="green">Condition:</td><td> {{ object.get_condition_display }}</td>
+    </tr>
+    <tr>
+      <td class="green">Location:</td><td> {{ object.location }}, {{ object.get_district_display }}</td>
+      <td class="green">Price:</td><td>BZ$ {{ object.price }}</td>
+    </tr>
+    <tr>
+      <td class="green">School:</td><td>{{ object.school }}</td>
+      <td class="green">Subject/Course:</td><td> {{ object.subject }}</td>
+    </tr>
+    <tr>
+      <td class="green">Edition:</td><td>{{ object.edition }}</td>
+      <td class="green">Revision:</td><td>{{ object.revision }}</td>
+    </tr>
+    <tr>
+      <td class="green">Phone: </td><td>{% if object.seller.home_number %}Home: {{ object.seller.home_number}}{%endif%}<br />
+      {% if object.seller.show_cellular %}Cell #: {{ object.seller.cellular_number }}{% endif %}
+      </td>
+      <td class="green">Email: </td><td>{{ object.seller.user.email }}</td>
+    </tr>
+    {% if object.comments %}
+    <tr><td colspan="4" class="green">Seller Comments<br />
+    <p>{{ object.comments }}</p>
+    </td></tr>
+    {% endif %}
+    </table>
+    <br />
+    {% if other_books %}
+    <div id="other_books" style="clear: both; margin-top: 25px;margin-left: 10px; ">
+    <div class="green_button rounded-corners" style="width: 250px"><span>Other Books by Seller!</span> <img src="/static/design_art/grn_thumb_icon.png" style="border: 0;" /></div>
+    <table id="list" cellpadding="10" cellspacing="10" border="0" style="clear: left;">
+    <tr>
+    {% for book in other_books %}
+      <td width="33%"><a href="{{ book.get_absolute_url}}" title="{{ book.title }}" ><img src="{% if book.image %}{{ book.image.get_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif %}" border="0"  /></a> <h3><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h3>
+        <p>{{ book.description|striptags|truncatewords:"15"}} &nbsp;&nbsp;<a href="{{ book.get_absolute_url }}">view</a></p>      
+      </td>
+      {% if forloop.counter|divisibleby:3 %}
+      </tr>
+      <tr><td colspan="3"><p>&nbsp;</p></td></tr>
+      <tr>
+      {% endif %}
+    {% endfor %}
+      </tr>
+    </table>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Signup at miBookList.com{% endblock %}
+{% block menu %}{% endblock %}
+{% block content %}
+<h1>Signup to add a Book</h1>
+<div class="ui-widget">
+<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">Account is for 1 yr and expires on date, will need to be renewed in order to
+continue.</div>
+</div>
+<br />
+<form name="register" id="registration_form" method="post" action="/accounts/register/">
+  {% csrf_token %}
+  <table>
+  {{ form.as_table }}
+  <tr><td colspan=2 align=right>
+  <input type="submit" name="submit_register" id="submit_register" value="Register" /></td></tr>
+</table>        
+</form>
+{% endblock %}

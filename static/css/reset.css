@@ -1,0 +1,41 @@
+/* 
+ * Rik Lomas - http://rikrikrik.com
+ * Based on code from Nick Rigby - http://www.nickrigby.com
+ */
+
+* {
+	margin: 0;
+	padding: 0;
+}
+a img, iframe { border: 0; }
+	
+/* Headers */
+
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+	
+/* Lists */
+	
+ul, ol, dl, li, dt, dd {
+	list-style: none;
+}
+
+/* Forms */
+
+form, fieldset {
+	border: 0;
+}	
+legend {
+	color: #000;
+}
+input, textarea, select, button {
+	font-size: 100%;
+	font-family: serif;
+}
+select {
+	margin: inherit;
+}
+/* Tables */
+

@@ -1,0 +1,72 @@
+{% extends "sellers/profile.html" %}
+{% block title %}{% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}'s Book List.{% endblock %}
+{% block extra_hd %}
+<script type="text/javascript" src="/static/js/datatables/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	oTable = $('#books').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers"
+	});
+} );
+</script>
+<style type="text/css" title="currentStyle"> 
+@import "/static/js/datatables/css/demo_page.css";
+@import "/static/js/datatables/css/demo_table_jui.css";
+@import "/static/js/datatables/css/jquery-ui-1.8.4.custom.css";
+</style>
+{% endblock %}
+{% block content %}
+<h1>
+{% if seller.screen_name %}
+{{ seller.screen_name }}
+{% else %}
+{{ user.username }}
+{% endif %}'s Book List.
+</h1>
+{% if books %}
+<div class="ui-widget">
+<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
+<strong>
+Please remember to delete the book listing after it has been
+sold.
+</strong>
+</div>
+</div>
+<br />
+<table id="books" width="100%" style="color: green;">
+<thead>
+<th>Id</th>
+<th>thumbnail</th>
+<th>Title</th>
+<th>ISBN</th>
+<th>Author</th>
+<th>Price</th>
+<th>Views</th>
+<th>Actions</th>
+</thead>
+<tbody>
+{% for book in books %}
+<tr><td>{{ book.id }}</td>
+<td><img src="{% if book.image %}{{ book.image.get_sm_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif%}" width="33" height="50" /></td>
+<td>{{ book.title }}</td>
+<td>{{ book.isbn }}</td>
+<td>{{ book.author }}</td>
+<td>{{ book.price }}</td>
+<td>{{ book.image.photo.image.view_count }}</td>
+<td><a href="/books/edit/{{ book.id }}">Edit</a> | 
+<a href="/books/delete/{{ book.id }}">Delete</a></td>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">
+<strong>
+You have not added any books as yet.
+</strong>
+</div>
+</div>
+<br />
+{% endif %}
+{% endblock %}

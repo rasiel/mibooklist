@@ -1,0 +1,12 @@
+{% extends "sellers/profile.html" %}
+{% block title %}Support Request{% endblock %}
+{% block content %}
+<h1>Send a support request</h1>
+<form action="." enctype="multipart/form-data" method="POST">
+{% csrf_token %}
+<table style="margin-left: 20px;">
+{{ form.as_table }}
+<tr><td colspan="2" align="right"><input type="submit" value="Send Request" class="rounded-corners" style="color: white;" /></td></tr>
+</table>
+</form>
+{% endblock %}

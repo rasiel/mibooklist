@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Books Listings - miBookList.com{% endblock %}
+{% block menu %}
+<form action="/sort/" method="POST" >
+{% csrf_token %}
+<input type="hidden" name="sort_searchterm" value="{% if searchterm %}{{ searchterm }}{% endif %}" />
+<table cellpadding="4" cellspacing="4">
+<tr><td><h3>Sort By:</h3></td>
+<td>Price: </td>
+<td>
+<select name="sort_price">
+<option value=""></option>
+<option value="-price">Descending</option>
+<option value="price">Ascending</option>
+</select></td>
+<td>Condition: </td><td>
+<select name="sort_condition">
+  <option value=""></option>
+ <option value="condition">Alphabetical</option>
+ <option value="-condition">Non-Alphabetical</option>
+</select>
+</td>
+<td>Distriction: </td><td>
+<select name="sort_district">
+  <option value=""></option>
+ <option value="district">Alphabetical</option>
+ <option value="-district">Non-Alphabetical</option>
+</select>
+</td>
+<td><input type="submit" name="sort" id="sort_sumbit" value="Sort" /></td>
+{% ifnotequal paginator.num_pages 1 %}
+<td align="right">Page {{ page }} of {{ paginator.num_pages }}</td>
+{% endifnotequal %}
+</tr>
+</table>
+</form>
+{% endblock %}
+{% block wrapper_suffix %}_list{% endblock %}
+{% block content %}
+<table width="100%">
+<tr><td>
+<h1>{% if searchterm %}Search Results for: {{ searchterm }}{% else %}Books List{%endif%}</h1>
+</td>
+<td>
+{% ifnotequal paginator.num_pages 1 %}
+<table align="center" border="0" width="100%">
+<tr><td align="right">{% if page_obj.has_previous %}<a href="/books/page{{ page_obj.previous_page_number }}" class="nav">&lt;previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</td>
+{% for p in page_range %}
+<td width="16px"><a href="/books/page{{ p }}" class="numbering">{{p}}</a></td>
+{% endfor %}
+<td align="left">{% if page_obj.has_next %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/books/page{{ page_obj.next_page_number }}" class="nav">next&gt;</a>{% endif %}</td>
+</table>
+{% endifnotequal %}
+</td>
+</tr>
+</table>
+{% if object_list %}
+{% for book in object_list %}
+<div id="item">
+    <table width="98%" align="center" border="0">
+    <tr>
+      <td rowspan="4" width="66px"><a href="{{ book.get_absolute_url }}"><img src="{% if book.image %}{{ book.image.get_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif %}" border="0" /></a></td>
+    </tr>
+    <tr>
+      <td valign="top" width="350px;"><h2><a href="{{ book.get_absolute_url }}" title="{{ book.title }}" />{{ book.title }}</a></h2></td>
+      <td valign="top">Posted By: {{ book.seller.user.username }}</td>
+    </tr>
+    <tr>
+    <td colspan="2" valign="top"><p>{{ book.description|striptags|truncatewords:"35" }} ... <a href="{{ book.get_absolute_url }}">(Read More >>)</a></p></td>
+    </tr>
+    <tr>
+     <td colspan="2" valign="bottom"><span>Condition:</span> {{book.get_condition_display }} <span>Location: </span> {{ book.location }}, {{ book.get_district_display }}
+     {% if book.school %}  <span>School:</span> {{ book.school }} {% endif %} <span>Price:</span> BZ$ {{book.price}}
+     </td>
+    </tr>
+    </table>
+</div>
+{% endfor %}
+<div id="bottom_search" style="margin-top: 20px; float: right;">
+  <form action="/search/" method="post" style="float: right;">
+    <table>
+    <tr><td><input type="text" class="rounded-corners" value="156 available book titles ..." /><br /><a href="#" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" /></button></td></tr>   
+    </table> 
+  </form>
+</div>
+{% else %}
+<div class="error">No Search Results</div>
+{% endif %}
+{% endblock %}
