@@ -5,7 +5,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
+    ('Israel Vasquez', 'rasiel@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -120,3 +120,8 @@ EMAIL_HOST_PASSWORD = 'learsi321'
 EMAIL_HOST_USER = 'israel@tutorialshop.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
