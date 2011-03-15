@@ -1,6 +1,6 @@
 from settings import *
 
-DEBUG = False
+DEBUG = True
 MEDIA_ROOT = '../data/'
 PHOTOLOGUE_DIR = 'photologue'
 GRAPPELLI_ADMIN_TITLE = 'miBookList.com Admin'

@@ -48,9 +48,10 @@ class BookForm(forms.ModelForm):
             new_photo.save()
             
         if self.cleaned_data['new_image']:
+            slug_title = slugify(self.cleaned_data['title'])
             new_photo = Photo(image=self.cleaned_data['new_image'],
-                          title=self.cleaned_data['title'],
-                          title_slug = slugify(self.cleaned_data['title']))
+                          title= "%s_%s" %(self.cleaned_data['title'], self.cleaned_data['seller']),
+                          title_slug = "%s_%s" %(slug_title, self.cleaned_data['seller']))
             new_photo.save()        
         
         if new_photo:

@@ -77,11 +77,12 @@
 </div>
 {% endfor %}
 <div id="bottom_search" style="margin-top: 20px; float: right;">
-  <form action="/search/" method="post" style="float: right;">
+  <form action="/search/" id="search_form2" method="POST">
+    {% csrf_token %}
     <table>
-    <tr><td><input type="text" class="rounded-corners" value="156 available book titles ..." /><br /><a href="#" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" /></button></td></tr>   
+    <tr><td><input type="text" name="searchterm" id="keyword2" class="rounded-corners" value="156 available book titles ..." /><br /><a href="javascript:null;" id="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search2" /></button></td></tr>   
     </table> 
-  </form>
+    </form>
 </div>
 {% else %}
 <div class="error">No Search Results</div>
