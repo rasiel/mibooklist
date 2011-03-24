@@ -3,6 +3,7 @@ from models import Book
 from sellers.models import Seller
 from photologue.models import Photo
 from django.template.defaultfilters import slugify
+import random
 
 ########################################################################
 class BookForm(forms.ModelForm):
@@ -42,19 +43,20 @@ class BookForm(forms.ModelForm):
         """Let's take the uploaded image, create a new photo and bind to 
         the image field in model"""
         new_photo = None
+        rand_int = random.randint(1,99)
         if self.cleaned_data['title']:
             slug_title = slugify(self.cleaned_data['title'])
         else:
             slug_title = False
         if slug_title and self.cleaned_data['new_image'] and self.cleaned_data['image']:
-            new_photo = Photo.objects.get(title_slug = "%s_%s" %(slug_title, self.cleaned_data['seller']))
+            new_photo = Photo.objects.get(title_slug = "%s_%s_%s" %(slug_title, self.cleaned_data['seller'],rand_int))
             new_photo.image = self.cleaned_data['new_image']
             new_photo.save()
             
         if slug_title and self.cleaned_data['new_image']:            
             new_photo = Photo(image=self.cleaned_data['new_image'],
-                          title= "%s_%s" %(self.cleaned_data['title'], self.cleaned_data['seller']),
-                          title_slug = "%s_%s" %(slug_title, self.cleaned_data['seller']))
+                          title= "%s_%s_%s" %(self.cleaned_data['title'], self.cleaned_data['seller'], rand_int),
+                          title_slug = "%s_%s_%s" %(slug_title, self.cleaned_data['seller'], rand_int))
             new_photo.save()        
         
         if new_photo:
