@@ -9,7 +9,7 @@
 </div>
 {% endblock %}
 {% block content %}
-<h1>Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}, you have {{ book_count }} books listed.</h1>
+<h1>Welcome {% if seller.get_full_name %}{{ seller.get_full_name }}{% else %}{{ user.username }}{% endif %}, please activate your account.</h1>
 {% ifequal seller.account_status 'PV' %}
 <div class="ui-widget">
 <div class="ui-state-error ui-corner-all" style="padding: 5px;">Your Account is
@@ -29,8 +29,19 @@ Please make your payment.
 {% ifequal seller.payment_option 'GC' %}
 <div class="ui-widget">
 <div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
-You selected <strong>Google Checkout</strong>. 
-Payment link goes here.
+Please make your payment via <strong>Google Checkout</strong> by clicking on the following button.
+<form action="https://checkout.google.com/api/checkout/v2/checkoutForm/Merchant/310241628213928" id="BB_BuyButtonForm" method="post" name="BB_BuyButtonForm" target="_top">
+    <input name="item_name_1" type="hidden" value="miBookList.com yearly subscription"/>
+    <input name="item_description_1" type="hidden" value="Yearly subscription to miBookList.com"/>
+    <input name="item_quantity_1" type="hidden" value="1"/>
+    <input name="item_price_1" type="hidden" value="15.0"/>
+    <input name="item_currency_1" type="hidden" value="USD"/>
+    <input name="shopping-cart.items.item-1.digital-content.description" type="hidden" value="After we've received your payment, your account will be activated automatically."/>
+    <input name="shopping-cart.items.item-1.digital-content.url" type="hidden" value="http://www.mibooklist.com/"/>
+    <input name="_charset_" type="hidden" value="utf-8"/>
+    <input alt="" src="https://checkout.google.com/buttons/buy.gif?merchant_id=310241628213928&amp;w=117&amp;h=48&amp;style=trans&amp;variant=text&amp;loc=en_US" type="image"/>
+</form>
+
 </div>
 </div>
 <br />
@@ -38,7 +49,6 @@ Payment link goes here.
 <div class="ui-widget">
 <div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
 You selected <strong>Local Bank Deposit</strong>. 
-Local Bank Information Goes here.
 </div>
 </div>
 <br />

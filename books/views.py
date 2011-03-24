@@ -10,6 +10,7 @@ from django.template import RequestContext
 
 def detail(request, slug):
     book = Book.objects.get(slug_url = slug)
+    book.increase_views()
     other_books = Book.objects.filter(seller__id = book.seller.id).exclude(slug_url=slug)
     return object_detail(
         request,

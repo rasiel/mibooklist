@@ -2,10 +2,10 @@
 {% block title %}{{ profile.user.username }} Profile{% endblock %}
 {% block content %}
 <h1>Your Profile:</h1>
-<table width="100%">
-<tr><td>Username:<td><td>{{ profile.user.username }}</td></tr>
+<table width="100%" >
+<tr><td width="100">Username:</td><td style="text-align: left">{{ profile.user.username }}</td></tr>
 <tr><td>Email Address:</td><td>{{ profile.user.email }}</td></tr>
-<tr><td>Screen Name:</td><td>{{ profile.screen_name }}</td></tr>
+<tr><td>Full Name:</td><td>{{ profile.get_full_name }}</td></tr>
 <tr><td>Location:</td><td>{{ profile.location }}</td></tr>
 <tr><td>Home Number:</td><td>{{ profile.home_number }} 
 Is Hidden? {% if profile.hide_phone %}Yes{% else %}No{% endif %}</td></tr>

@@ -49,7 +49,11 @@ button img {
   margin-left: 0;
   border: 0;
 }
-
+form ul li label {
+  display: block;
+  font-weight: bold;
+  width: 200px;
+}
 #wrapper {
   width: 900px;
   overflow: auto;
@@ -260,7 +264,7 @@ button img {
   font-weight: bold;
 }
 #menu table {
-  margin-top: 5px;
+  margin-top: 0px;
 }
 #menu h3 {
   font-size: 16px;
@@ -339,4 +343,7 @@ input[type=submit] {
   border: 2px solid red;
   background-color: white;
   padding: 5px;
+}
+ul.errorlist {
+  float: right;
 }

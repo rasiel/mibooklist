@@ -1,5 +1,11 @@
-from: {{ from_email }}
+Admin,
+
+You have received a new Support Message from:
+seller: {{ from_name }}
+Email: {{ from_email }}
 
 message:
 
 {{ message }}
+
+You can log on to http://{{site}}/admin/ to view your Support Messages.

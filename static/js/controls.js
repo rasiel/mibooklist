@@ -2,8 +2,7 @@ $(document).ready(function () {
   $("#search, #search2").click(function (e) {
     e.preventDefault();
     id = $(this).attr("id");
-    alert(id);
-    if (id == "#search") {
+    if (id == "search") {
       kword = $("#keyword").val();
       search_form = "#search_form";
     } else {
@@ -17,7 +16,7 @@ $(document).ready(function () {
       alert("Please enter a Book Title to search");
     }
   });
-  $("#keyword, #keyword1").focus(function () {
+  $("#keyword, #keyword2").focus(function () {
     $(this).val('');  
   });
   $("#advanced_search_button").click(function (e) {
@@ -37,4 +36,14 @@ $(document).ready(function () {
       alert('Please enter a search term');
     }
   });
+  $("#id_hide_email, #id_hide_phone, #id_hide_cellular").click(function () {
+    var e = $("#id_hide_email").val();
+    var p = $("#id_hide_phone").val();
+    var c = $("#id_hide_cellular").val();
+    
+    if (e && p && c) {
+      alert("You are given the option to hide all your contact information, however, if all is hidden, there will be no way for you to be contacted");    
+    }
+  });
+  $('ul.errorlist').prev().css('border', '2px solid red');
 });

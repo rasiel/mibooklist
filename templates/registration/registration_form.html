@@ -11,7 +11,17 @@ continue.</div>
 <form name="register" id="registration_form" method="post" action="/accounts/register/">
   {% csrf_token %}
   <table>
-  {{ form.as_table }}
+  {% for field in form.visible_fields %}
+{% if forloop.first %}
+  {% for hidden in form.hidden_fields %}
+  <tr><td colspan="2">{{ hidden }}</td></tr>
+  {% endfor %}
+{% endif %}
+<tr>
+  <td class="fieldWrapper">{{ field.label_tag }}:</td>
+  <td>{{ field }} {{ field.errors }} {{ field.help_text }}</td>
+</tr>
+{% endfor %}
   <tr><td colspan=2 align=right>
   <input type="submit" name="submit_register" id="submit_register" value="Register" /></td></tr>
 </table>        

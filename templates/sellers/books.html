@@ -17,13 +17,7 @@ $(document).ready(function() {
 </style>
 {% endblock %}
 {% block content %}
-<h1>
-{% if seller.screen_name %}
-{{ seller.screen_name }}
-{% else %}
-{{ user.username }}
-{% endif %}'s Book List.
-</h1>
+<h1>Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}, you have {{ user_book_count }} books listed.</h1>
 {% if books %}
 <div class="ui-widget">
 <div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
@@ -47,14 +41,15 @@ sold.
 </thead>
 <tbody>
 {% for book in books %}
-<tr><td>{{ book.id }}</td>
-<td><img src="{% if book.image %}{{ book.image.get_sm_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif%}" width="33" height="50" /></td>
-<td>{{ book.title }}</td>
-<td>{{ book.isbn }}</td>
-<td>{{ book.author }}</td>
-<td>{{ book.price }}</td>
-<td>{{ book.image.photo.image.view_count }}</td>
-<td><a href="/books/edit/{{ book.id }}">Edit</a> | 
+<tr>
+<td style="text-align: center">{{ book.id }}</td>
+<td style="text-align: center"><img src="{% if book.image %}{{ book.image.get_sm_thumb_url }}{% else %}/static/design_art/no_cover.jpg{% endif%}" width="33" height="50" /></td>
+<td style="text-align: center">{{ book.title }}</td>
+<td style="text-align: center">{{ book.isbn }}</td>
+<td style="text-align: center">{{ book.author }}</td>
+<td style="text-align: center">{{ book.price }}</td>
+<td style="text-align: center">{{ book.views }}</td>
+<td style="text-align: center"><a href="/books/edit/{{ book.id }}">Edit</a> | 
 <a href="/books/delete/{{ book.id }}">Delete</a></td>
 {% endfor %}
 </tbody>

@@ -2,4 +2,3 @@ Django==1.2.5
 django-grappelli==2.3.1
 yolk==0.4.1
 django-photologue==2.3
-hg+https://bitbucket.org/ubernostrum/django-contact-form

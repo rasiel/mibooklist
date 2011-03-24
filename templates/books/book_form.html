@@ -6,7 +6,7 @@
   $(document).ready(function() {
     $('#id_title').keyup(function () {
       $("#id_slug_url").val(URLify($(this).val()));    
-    });
+    });    
   });
 </script>
 {% endblock %}
@@ -16,7 +16,17 @@
 <form action="." enctype="multipart/form-data" method="POST">
 {% csrf_token %}
 <table style="margin-left: 20px;">
-{{ form.as_table }}
+{% for field in form.visible_fields %}
+{% if forloop.first %}
+  {% for hidden in form.hidden_fields %}
+  <tr><td colspan="2">{{ hidden }}</td></tr>
+  {% endfor %}
+{% endif %}
+<tr>
+  <td class="fieldWrapper">{{ field.label_tag }}:</td>
+  <td>{{ field }} {{ field.errors }} {{ field.help_text }}</td>
+</tr>
+{% endfor %}
 <tr><td colspan="2" align="right"><input type="submit" value="Add Book" class="rounded-corners" style="color: white;" /></td></tr>
 </table>
 </form>

@@ -2,6 +2,9 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 from mibooklist.views import index, search, sort, advanced_search, delete_user
 from mibooklist.sellers.views import profile, books
+from sellers.forms import SupportForm
+from contact_form.views import contact_form
+from django.views.generic.simple import direct_to_template
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -20,7 +23,8 @@ urlpatterns = patterns('',
     (r'^accounts/delete/(?P<id>\d+)/$', delete_user),
     (r'^accounts/', include('registration.backends.default.urls')),
     (r'^profiles/', include('profiles.urls')),
-    (r'^support/', include('contact_form.urls')),
+    url(r'^support/$',contact_form, {'form_class': SupportForm}, name='contact_form',),
+    url(r'^support/sent/$',direct_to_template,{ 'template': 'contact_form/contact_form_sent.html' }, name='contact_form_sent'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

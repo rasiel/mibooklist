@@ -48,6 +48,7 @@ USE_L10N = True
 # Example: "/home/media/media.lawrence.com/"
 DIRNAME = os.path.dirname(__file__)
 MEDIA_ROOT = os.path.join(DIRNAME, 'static')
+
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
@@ -82,6 +83,7 @@ ROOT_URLCONF = 'mibooklist.urls'
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.auth",
     "django.core.context_processors.request",
+    "mibooklist.books.context_processors.book_count",
 )
 
 TEMPLATE_DIRS = (
@@ -112,6 +114,7 @@ INSTALLED_APPS = (
 )
 
 ACCOUNT_ACTIVATION_DAYS = 3
+LOGIN_REDIRECT_URL = '/accounts/books/'
 AUTH_PROFILE_MODULE = 'sellers.seller'
 
 #SMPT Settings

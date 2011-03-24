@@ -4,23 +4,23 @@
 <form action="/sort/" method="POST" >
 {% csrf_token %}
 <input type="hidden" name="sort_searchterm" value="{% if searchterm %}{{ searchterm }}{% endif %}" />
-<table cellpadding="4" cellspacing="4">
-<tr><td><h3>Sort By:</h3></td>
-<td>Price: </td>
+<table cellpadding="0" cellspacing="0" border="0">
+<tr><td>&nbsp;&nbsp;Sort By:</td>
+<td>&nbsp;&nbsp;Price: </td>
 <td>
 <select name="sort_price">
 <option value=""></option>
 <option value="-price">Descending</option>
 <option value="price">Ascending</option>
 </select></td>
-<td>Condition: </td><td>
+<td>&nbsp;&nbsp;Condition: </td><td>
 <select name="sort_condition">
   <option value=""></option>
  <option value="condition">Alphabetical</option>
  <option value="-condition">Non-Alphabetical</option>
 </select>
 </td>
-<td>Distriction: </td><td>
+<td>&nbsp;&nbsp;District: </td><td>
 <select name="sort_district">
   <option value=""></option>
  <option value="district">Alphabetical</option>
@@ -28,9 +28,6 @@
 </select>
 </td>
 <td><input type="submit" name="sort" id="sort_sumbit" value="Sort" /></td>
-{% ifnotequal paginator.num_pages 1 %}
-<td align="right">Page {{ page }} of {{ paginator.num_pages }}</td>
-{% endifnotequal %}
 </tr>
 </table>
 </form>
@@ -43,6 +40,7 @@
 </td>
 <td>
 {% ifnotequal paginator.num_pages 1 %}
+<h2 style="color: blue; margin-left: 10px;">Page {{ page }} of {{ paginator.num_pages }}</h2>
 <table align="center" border="0" width="100%">
 <tr><td align="right">{% if page_obj.has_previous %}<a href="/books/page{{ page_obj.previous_page_number }}" class="nav">&lt;previous</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}</td>
 {% for p in page_range %}
@@ -69,8 +67,12 @@
     <td colspan="2" valign="top"><p>{{ book.description|striptags|truncatewords:"35" }} ... <a href="{{ book.get_absolute_url }}">(Read More >>)</a></p></td>
     </tr>
     <tr>
-     <td colspan="2" valign="bottom"><span>Condition:</span> {{book.get_condition_display }} <span>Location: </span> {{ book.location }}, {{ book.get_district_display }}
-     {% if book.school %}  <span>School:</span> {{ book.school }} {% endif %} <span>Price:</span> BZ$ {{book.price}}
+     <td colspan="2" valign="bottom">
+     <span>Publisher</span> {{ book.publisher }}     
+     <span>Condition:</span> {{book.get_condition_display }} 
+     <span>Location: </span> {{ book.location }}, {{ book.get_district_display }}
+     {% if book.school %}  <span>School:</span> {{ book.school }} {% endif %} 
+     <span>Price:</span> BZ$ {{book.price}}
      </td>
     </tr>
     </table>
@@ -80,7 +82,7 @@
   <form action="/search/" id="search_form2" method="POST">
     {% csrf_token %}
     <table>
-    <tr><td><input type="text" name="searchterm" id="keyword2" class="rounded-corners" value="156 available book titles ..." /><br /><a href="javascript:null;" id="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search2" /></button></td></tr>   
+    <tr><td><input type="text" name="searchterm" id="keyword2" class="rounded-corners" value="{{ book_count }} available book titles ..." /><br /><a href="javascript:null;" class="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search2" /></button></td></tr>   
     </table> 
     </form>
 </div>

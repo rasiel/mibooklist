@@ -103,18 +103,20 @@ class myRegistrationForm(RegistrationFormUniqueEmail):
     email addresses. Adds TOS and additional user profile fields
     
     """
-    screen_name = forms.CharField(help_text=_(u'Not displayed, for internal use only.'), 
-                                error_messages={'required': _("Full Name is required.")})
+    first_name = forms.CharField(help_text=_(u'Not displayed, for internal use only.'), 
+                                error_messages={'required': _("First Name is required.")})
+    last_name = forms.CharField(help_text=_(u'Not displayed, for internal use only.'), 
+                                error_messages={'required': _("Last Name is required.")})
     location = forms.CharField(widget=forms.Select(choices=DISTRICT_CHOICES),
                                label = _(u'Location'),
                                help_text = _(u'Choose your Location'),
-                               error_messages={'required': _("Full Name is required.")})
-    home_phone = forms.CharField(error_messages={'required': _("Full Name is required.")})
+                               error_messages={'required': _("Location is required.")})
+    home_number = forms.CharField(error_messages={'required': _("Phone Number is required.")})
     hide_phone = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
                                          label = _('Hide Home Phone?'),
                                          help_text = _('Check to be hidden, otherwise displayed on site.'),
                                          required = False)
-    cell_phone = forms.CharField(required=False)
+    cellular_number = forms.CharField(required=False)
     hide_cellular = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
                                          label = _('Hide Cell Phone?'),
                                          help_text = _('Check to be hidden, otherwise displayed on site.'),

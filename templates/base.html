@@ -19,7 +19,7 @@
     });
 				
     // Dialog Link
-    $('#dialog_link').click(function(){
+    $('.dialog_link').click(function(){
       $('#advanced_search').dialog('open');
       return false;
     });
@@ -39,7 +39,7 @@
     <form action="/search/" id="search_form" method="POST">
     {% csrf_token %}
     <table>
-    <tr><td><input type="text" name="searchterm" id="keyword" class="rounded-corners" value="156 available book titles ..." /><br /><a href="javascript:null;" id="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search" /></button></td></tr>   
+    <tr><td><input type="text" name="searchterm" id="keyword" class="rounded-corners" value="{{ book_count }} available book titles ..." /><br /><a href="javascript:null;" class="dialog_link" style="float: right;margin-right: 5px;">Advanced Search</a></td><td><button type="submit" value="Search" ><img src="/static/design_art/search_btn.png" id="search" /></button></td></tr>   
     </table> 
     </form>
   </div>
@@ -48,7 +48,7 @@
   {% if user.is_authenticated %}
   <h2 style="margin-left: 20px">Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}.</h2>
   <div class="green_button rounded-corners" style="margin-left:20px;width: 175px">
-  <span><a href="/accounts/profile/">My Account Status</a></span>
+  <span><a href="/accounts/books/">My Account</a></span>
   </div>
   <div class="green_button rounded-corners" style="margin-left:20px;width: 175px">
   <span><a href="/accounts/logout/">Logout</a></span>
@@ -68,11 +68,11 @@
 </tr> 
 <tr>
       <td></td>
-      <td align="right"><input type="submit" value="LOGIN" style="color: white;" /></td>
+      <td align="right"><input type="submit" value="Login" style="color: white;" /></td>
     </tr>
     <tr>
       <td></td>
-      <td align="right"><a href="/accounts/register/" class="blue">SIGNUP</a> | <a href="/accounts/password/reset/" style="float: right;margin-right: 5px;">Forgot Password?</a></td>
+      <td align="right"><a href="/accounts/register/" class="blue">Signup</a> | <a href="/accounts/password/reset/" style="float: right;margin-right: 5px;">Forgot Password?</a></td>
     </tr>
 </table> 
  <input type="hidden" name="next" value="" /> 
@@ -118,7 +118,7 @@
     <table width="98%" style="margin-top: 10px; margin-left: 10px; margin-right: 10px;">
     <tr>
       <td><a href="/pages/terms/">Terms of Use</a> ||  <a href="/pages/your-safety/">Your Safety</a> || <a href="/pages/avoid-scams/">Avoid Scams</a>
-      || <a href="/pages/about/">About what we do</a> || <a href="/pages/disclaimer/">Disclaimer</a></td>
+      || <a href="/pages/about/">About Us</a> || <a href="/pages/disclaimer/">Legal</a></td>
       <td align="right" style="text-align: right;">Copyright &copy; 2011 miBookList.com || <a href="mailto: info@mibooklist.com">info@miBookList.com</a></td>
       </tr>
     </table>

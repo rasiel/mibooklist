@@ -197,9 +197,15 @@ def edit_profile(request, form_class=SellerForm, success_url=None,
         form = form_class(data=request.POST, files=request.FILES, instance=profile_obj)
         if form.is_valid():
             form.save()
+            profile_obj.user.first_name = request.POST['first_name']
+            profile_obj.user.last_name = request.POST['last_name']
+            profile_obj.user.email = request.POST['email']
+            profile_obj.user.save()
             return HttpResponseRedirect(success_url)
     else:
-        form = form_class(instance=profile_obj)
+        form = form_class(initial={'first_name': profile_obj.user.first_name,
+                                   'last_name': profile_obj.user.last_name,
+                                   'email': profile_obj.user.email},instance=profile_obj)
     
     if extra_context is None:
         extra_context = {}

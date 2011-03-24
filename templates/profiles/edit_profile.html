@@ -2,11 +2,46 @@
 {% block title %}Edit Your Profile{% endblock %}
 {% block content %}
 <h1>Edit Your Profile:</h1>
+<h2>Click Here to <a href="/accounts/password/change/">Change Password</a></h2>
 <form action="." method="POST">
 {% csrf_token %}
 <table>
-{{ form.as_table }}
-<tr><td colspan="2" align="right"><input type="submit" value="EDIT" style="color: white;" /></td></tr>
+<tr>
+  <td class="fieldWrapper">{{ form.first_name.label_tag }}:</td>
+  <td>{{ form.first_name }} {{ form.first_name.errors }} {{ form.first_name.help_text }}</td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.last_name.label_tag }}:</td>
+  <td>{{ form.last_name }} {{ form.last_name.errors }} {{ form.last_name.help_text }}</td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.email.label_tag }}:</td>
+  <td>{{ form.email }} {{ form.email.errors }} {{ form.email.help_text }}
+  {{ form.hide_email }} {{ form.hide_email.label}}  
+  </td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.location.label_tag }}:</td>
+  <td>{{ form.location }} {{ form.location.errors }} {{ form.locaiont.help_text }}</td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.home_number.label_tag }}:</td>
+  <td>{{ form.home_number }} {{ form.home_number.errors }} {{ form.home_number.help_text }}
+  {{ form.hide_phone }} {{ form.hide_phone.label }}
+  </td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.cellular_number.label_tag }}:</td>
+  <td>{{ form.cellular_number }} {{ form.cellular_number.errors }} {{ form.cellular_number.help_text }}
+  {{ form.hide_cellular }} {{ form.hide_cellular.label }}
+  </td>
+</tr>
+<tr>
+  <td class="fieldWrapper">{{ form.payment_option.label_tag }}:</td>
+  <td>{{ form.payment_option }} {{ form.payment_option.errors }} {{ form.payment_option.help_text }}  
+  </td>
+</tr>
+<tr><td colspan="2" align="right"><input type="submit" value="Update" style="color: white;" /></td></tr>
 </table>
 </form>
 {% endblock %}

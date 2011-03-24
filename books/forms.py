@@ -9,8 +9,8 @@ class BookForm(forms.ModelForm):
     """Form for adding a new book"""
     seller = forms.CharField(widget=forms.HiddenInput())
     image = forms.CharField(widget=forms.HiddenInput(), required=False)
-    new_image = forms.ImageField(required=False)
-    slug_url = forms.SlugField(help_text="This is a unique, search engine friendly URL")
+    new_image = forms.ImageField(required=False, help_text="Upload a valid jpg, png or gif image. Hint: you can search google for a book cover.")
+    slug_url = forms.CharField(widget=forms.HiddenInput())
     
     class Meta:
         model = Book
@@ -42,13 +42,16 @@ class BookForm(forms.ModelForm):
         """Let's take the uploaded image, create a new photo and bind to 
         the image field in model"""
         new_photo = None
-        if self.cleaned_data['new_image'] and self.cleaned_data['image']:
-            new_photo = Photo.objects.get(title_slug = slugify(self.cleaned_data['title']))
+        if self.cleaned_data['title']:
+            slug_title = slugify(self.cleaned_data['title'])
+        else:
+            slug_title = False
+        if slug_title and self.cleaned_data['new_image'] and self.cleaned_data['image']:
+            new_photo = Photo.objects.get(title_slug = "%s_%s" %(slug_title, self.cleaned_data['seller']))
             new_photo.image = self.cleaned_data['new_image']
             new_photo.save()
             
-        if self.cleaned_data['new_image']:
-            slug_title = slugify(self.cleaned_data['title'])
+        if slug_title and self.cleaned_data['new_image']:            
             new_photo = Photo(image=self.cleaned_data['new_image'],
                           title= "%s_%s" %(self.cleaned_data['title'], self.cleaned_data['seller']),
                           title_slug = "%s_%s" %(slug_title, self.cleaned_data['seller']))

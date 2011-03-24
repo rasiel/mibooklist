@@ -29,13 +29,17 @@ def books(request):
     if seller:
         try:
             books = Book.objects.filter(seller=seller.id)
+            book_count = Book.objects.filter(seller=seller.id).count()
         except Book.DoesNotExist:
             books = None
+            book_count = 0
     else:
         books = None
+        book_count = 0
         
     return simple.direct_to_template(request, 
                                      template='sellers/books.html', 
                                      extra_context={'seller': seller, 
-                                                    'books': books})
+                                                    'books': books,
+                                                    'user_book_count': book_count})
     
