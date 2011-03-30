@@ -56,7 +56,6 @@ form ul li label {
 }
 #wrapper {
   width: 900px;
-  overflow: auto;
   background-color: #bfbfbf;	
   background-image: url(../design_art/content_bg.png);
   margin-left: auto;
