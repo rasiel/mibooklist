@@ -112,10 +112,15 @@ form ul li label {
   color: #2989eb;
   font-weight: bold;
 }
-#menu_cont, #footer_cont {
+#menu_cont{
   width: 100%;
   clear: both;
   overflow: auto;
+  margin-top: 10px;
+}
+#footer_cont{
+  width: 100%;
+  clear: both;
   margin-top: 10px;
 }
 #menu{
