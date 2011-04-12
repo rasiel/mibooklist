@@ -84,6 +84,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.auth",
     "django.core.context_processors.request",
     "mibooklist.books.context_processors.book_count",
+    "mibooklist.context_processors.current_date",
 )
 
 TEMPLATE_DIRS = (

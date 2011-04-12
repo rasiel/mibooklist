@@ -20,7 +20,7 @@ def detail(request, slug):
         slug = slug,
         template_name = 'books/book_detail.html',
         extra_context = {'other_books': other_books, 
-                         'sellercontact_form': ContactSellerForm(request=request,initial={'to': book.seller.id})}
+                         'sellercontact_form': ContactSellerForm(request=request,initial={'to': book.seller.id, 'book': book.id})}
     )
 
 @login_required

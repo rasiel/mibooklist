@@ -1,5 +1,6 @@
 from django import forms
 from models import Seller, SupportMessage
+from books.models import Book
 from django.utils.translation import ugettext_lazy as _
 from contact_form.forms import ContactForm
 from django.core.mail import send_mail
@@ -20,6 +21,7 @@ class SellerForm(forms.ModelForm):
 
 class ContactSellerForm(ContactForm):
     to = forms.CharField(widget=forms.HiddenInput())
+    book = forms.CharField(widget=forms.HiddenInput())
     
     subject_template_name = "contact_form/seller_form_subject.txt"
     
@@ -34,6 +36,16 @@ class ContactSellerForm(ContactForm):
             return seller
         else:
             raise forms.ValidationError("Could not send message to seller")
+    
+    def clean_book(self):
+        try:
+            book = Book.objects.get(pk=self.cleaned_data['book'])
+        except Book.DoesNotExist:
+            book = None
+        if book:
+            return book
+        else:
+            raise forms.ValidationError("Could not attach book to seller form.")
     
     def save(self,fail_silently=True):
         seller = Seller.objects.get(user=self.cleaned_data['to'].user.id)

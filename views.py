@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 
 def index(request):
     books = Book.objects.all().order_by('-created')[:6]
-    date = datetime.now()
-    return simple.direct_to_template(request, template='base.html', extra_context={'books': books, 'date': date})
+    return simple.direct_to_template(request, template='base.html', extra_context={'books': books})
 
 def search(request):
     term = request.POST['searchterm']

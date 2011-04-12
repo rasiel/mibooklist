@@ -2,6 +2,7 @@ You have received a new Book Request from:
 
 name: {{ name }}
 Email: {{ email }}
+Book:  {{ book.title }}
 
 message:
 
