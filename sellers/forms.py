@@ -3,6 +3,7 @@ from models import Seller, SupportMessage
 from django.utils.translation import ugettext_lazy as _
 from contact_form.forms import ContactForm
 from django.core.mail import send_mail
+from django.conf import settings
 
 ########################################################################
 class SellerForm(forms.ModelForm):
@@ -16,16 +17,40 @@ class SellerForm(forms.ModelForm):
     class Meta:
         model = Seller
         exclude = ('user', 'account_status',)
+
+class ContactSellerForm(ContactForm):
+    to = forms.CharField(widget=forms.HiddenInput())
+    
+    subject_template_name = "contact_form/seller_form_subject.txt"
+    
+    template_name = 'contact_form/seller_form.txt'
+    
+    def clean_to(self):
+        try:
+            seller = Seller.objects.get(pk=self.cleaned_data['to'])
+        except DoesNotExist:
+            seller = None
+        if seller:
+            return seller
+        else:
+            raise forms.ValidationError("Could not send message to seller")
+    
+    def save(self,fail_silently=True):
+        seller = Seller.objects.get(user=self.cleaned_data['to'].user.id)
+        msg = SupportMessage(seller=seller, message=self.request.POST['body'])
+        msg.save()
+        self.recipient_list = [seller.user.email]
+        send_mail(fail_silently=fail_silently,**self.get_message_dict())
         
 class SupportForm(ContactForm):
     name = forms.CharField(widget=forms.HiddenInput(),required=False)
-    email = forms.CharField(widget=forms.HiddenInput(),required=False)
+    email = forms.CharField(widget=forms.HiddenInput(),required=False)    
     
-    def save(self,fail_silently=False):
+    def save(self,fail_silently=True):
         seller = Seller.objects.get(user=self.request.user.id)
         msg = SupportMessage(seller=seller, message=self.request.POST['body'])
         msg.save()
-        send_mail(fail_silently=fail_silently, **self.get_message_dict())
+        send_mail(fail_silently=fail_silently,)
         
 
 

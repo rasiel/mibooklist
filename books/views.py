@@ -7,6 +7,7 @@ from django.views.generic.create_update import create_object, delete_object
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from sellers.forms import ContactSellerForm
 
 def detail(request, slug):
     book = Book.objects.get(slug_url = slug)
@@ -18,7 +19,8 @@ def detail(request, slug):
         slug_field = 'slug_url',
         slug = slug,
         template_name = 'books/book_detail.html',
-        extra_context = {'other_books': other_books}
+        extra_context = {'other_books': other_books, 
+                         'sellercontact_form': ContactSellerForm(request=request,initial={'to': book.seller.id})}
     )
 
 @login_required

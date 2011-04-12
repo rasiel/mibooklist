@@ -1,17 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Books Listings - miBookList.com{% endblock %}
+{% block extra_hd %}
+<script type="text/javascript"> 
+  $(document).ready(function(){ 
+    $('#contact_seller').dialog({
+      autoOpen: false,
+      modal: true,
+      width: 600      
+    });
+				
+    // Dialog Link
+    $('.contact_seller_link').click(function(){
+      $('#contact_seller').dialog('open');
+      return false;
+    });
+  }); 
+  // Dialog			
+  
+</script>
+{% endblock %}
 {% block menu %}{% endblock %}
 {% block content %}
     <table width="100%">
-    <tr><td><h1>{{ object.title }}</h1></td>
+    <tr><td><h1>{{ object.title }}</h1></td>    
     <td align="right"><div class="green_button rounded-corners" style="width: 100px"><span><a href="javascript:null()" onclick="javascript:history.go(-1) ;">Go Back <<</a></span></div></td>
     </tr>
+    <tr><td colspan="2"><h2>ISBN: {{ object.isbn }}</h2></td></tr>
     </table>
     <p><img src="{% if object.image %}{{ object.image.get_display_url }}{% else %}/static/design_art/no_cover_big.jpg{% endif %}" /> {{ object.description|striptags }}</p>
     <h2>Book Information: </h2>
     <table width="80%" align="center" cellpadding="4" cellspacing="4">
+    <tr><td colspan="4"><div class="green_button rounded-corners" style="width: 250px"><span><a href="#" class="contact_seller_link">Contact Seller!</a></span> </div>      </td></tr>
     <tr>
-      <td class="green">Posted by:</td><td> {{ object.seller.user.username }}</td>
+      <td class="green">Posted by:</td><td> {{ object.seller.user.username }}
+
+      </td>
       <td class="green">Condition:</td><td> {{ object.get_condition_display }}</td>
     </tr>
     <tr>
@@ -31,11 +54,16 @@
       <td class="green">Revision:</td><td>{{ object.revision }}</td>
     </tr>
     <tr>
-      <td class="green">Phone: </td><td>{% if object.seller.home_number %}Home: {{ object.seller.home_number}}{%endif%}<br />
-      {% if object.seller.show_cellular %}Cell #: {{ object.seller.cellular_number }}{% endif %}
+      <td class="green">Phone: </td><td>{% if object.seller.hide_phone %}{% else %}Home: {{ object.seller.home_number}}{%endif%}<br />
+      {% if object.seller.hide_cellular %}{% else %}Cell #: {{ object.seller.cellular_number }}{% endif %}
       </td>
+    </tr>
+    {% if object.seller.hide_email %}
+    {% else %}
+    <tr>
       <td class="green">Email: </td><td>{{ object.seller.user.email }}</td>
     </tr>
+    {% endif %}
     {% if object.comments %}
     <tr><td colspan="4" class="green">Seller Comments<br />
     <p>{{ object.comments }}</p>
@@ -62,4 +90,14 @@
     </table>
     </div>
     {% endif %}
+<div id="contact_seller" title="Contact Seller">
+<form action="/contact-seller/" id="contact_seller_form" method="POST">
+{% csrf_token %}
+<table cellpadding="4" cellspacing="4">
+{{ sellercontact_form.as_table }}
+<tr>
+<td colspan="2" align="right"><input type="submit" name="contact_seller" style="border: 1px solid black" value="Contact Seller" /></td></tr>   
+</table> 
+</form>
+</div>    
 {% endblock %}

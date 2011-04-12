@@ -1,0 +1,10 @@
+You have received a new Book Request from:
+
+name: {{ name }}
+Email: {{ email }}
+
+message:
+
+{{ body }}
+
+You can reply directly to {{ email }}

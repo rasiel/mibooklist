@@ -61,7 +61,7 @@
     </tr>
     <tr>
       <td valign="top" width="350px;"><h2><a href="{{ book.get_absolute_url }}" title="{{ book.title }}" />{{ book.title }}</a></h2></td>
-      <td valign="top">Posted By: {{ book.seller.user.username }}</td>
+      <td valign="top" align="left">Posted By: {{ book.seller.user.username }}</td>
     </tr>
     <tr>
     <td colspan="2" valign="top"><p>{{ book.description|striptags|truncatewords:"35" }} ... <a href="{{ book.get_absolute_url }}">(Read More >>)</a></p></td>

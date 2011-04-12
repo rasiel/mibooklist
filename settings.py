@@ -110,16 +110,28 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'sellers',
     'books',
-    'contact_form'
+    'contact_form',
+    'templatesadmin'
 )
 
 ACCOUNT_ACTIVATION_DAYS = 3
 LOGIN_REDIRECT_URL = '/accounts/books/'
 AUTH_PROFILE_MODULE = 'sellers.seller'
-
+INTERNAL_IPS = ('127.0.0.1',)
 #SMPT Settings
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'learsi321'
-EMAIL_HOST_USER = 'israel@tutorialshop.com'
+EMAIL_HOST_PASSWORD = 'books2Rus'
+EMAIL_HOST_USER = 'mibooklist@gmail.com'
+EMAIL_HOST_PORT = 587
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'notify@mibooklist.com'
+
+#templatesadmin settings
+TEMPLATESADMIN_VALID_FILE_EXTENSIONS = (
+        'txt', 
+    )
+TEMPLATESADMIN_TEMPLATE_DIRS = (
+        "%s/templates/registration" %(DIRNAME),
+        "%s/templates/contact_form" %(DIRNAME),
+    )

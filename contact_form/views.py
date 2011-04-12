@@ -79,8 +79,14 @@ def contact_form(request, form_class=ContactForm,
             form.save(fail_silently=fail_silently)
             return HttpResponseRedirect(success_url)
     else:
-        form = form_class(initial={'name': "%s %s" %(request.user.first_name, request.user.last_name),
-                                   'email': request.user.email},request=request)
+        if request.user.is_authenticated:
+            user_name = "%s %s" %(request.user.first_name, request.user.last_name)
+            user_email = request.user.email
+        else:
+            user_name = ""
+            user_email = ""
+        form = form_class(initial={'name': user_name,
+                                   'email': user_email},request=request)
 
     if extra_context is None:
         extra_context = {}

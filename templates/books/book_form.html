@@ -1,25 +1,16 @@
 {% extends "sellers/profile.html" %}
 {% block title %}Add a new book{% endblock %}
-{% block extra_hd %}
-<script type="text/javascript" src="/static/media/js/urlify.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#id_title').keyup(function () {
-      $("#id_slug_url").val(URLify($(this).val()));    
-    });    
-  });
-</script>
-{% endblock %}
 {% block content %}
 {% if can_add_book %}
 <h1>Add Book:</h1>
 <form action="." enctype="multipart/form-data" method="POST">
 {% csrf_token %}
+{{ form.non_field_errors }}
 <table style="margin-left: 20px;">
 {% for field in form.visible_fields %}
 {% if forloop.first %}
   {% for hidden in form.hidden_fields %}
-  <tr><td colspan="2">{{ hidden }}</td></tr>
+  <tr><td colspan="2">{{ hidden }}</td><td>{{ hidden.errors }}</td></tr>
   {% endfor %}
 {% endif %}
 <tr>

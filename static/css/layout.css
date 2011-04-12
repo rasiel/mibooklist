@@ -55,9 +55,9 @@ form ul li label {
   width: 200px;
 }
 #wrapper {
-  width: 900px;
-  background-color: #bfbfbf;	
-  background-image: url(../design_art/content_bg.png);
+  width: 900px;	  
+  background-image: url(../design_art/content_bg.png);  
+  background-color: #bfbfbf;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
@@ -120,7 +120,7 @@ form ul li label {
 }
 #footer_cont{
   width: 100%;
-  clear: both;
+  height: 35px;
   margin-top: 10px;
 }
 #menu{
@@ -169,7 +169,6 @@ form ul li label {
 }
 #content_wrapper {
   width: 95%;
-  overflow: auto;
   margin-left: auto;
   margin-right: auto;
   margin-top: 18px;
@@ -338,6 +337,7 @@ input[type=submit] {
 }
 .green {
   color: #a7d39c;
+  font-weight: bold;
 }
 .blue_link, .green_link {
   text-decoration: underline;
