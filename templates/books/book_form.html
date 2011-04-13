@@ -2,7 +2,7 @@
 {% block title %}Add a new book{% endblock %}
 {% block content %}
 {% if can_add_book %}
-<h1>Add Book:</h1>
+<h1>Update Book:</h1>
 <form action="." enctype="multipart/form-data" method="POST">
 {% csrf_token %}
 {{ form.non_field_errors }}
@@ -18,7 +18,7 @@
   <td>{{ field }} {{ field.errors }} {{ field.help_text }}</td>
 </tr>
 {% endfor %}
-<tr><td colspan="2" align="right"><input type="submit" value="Add Book" class="rounded-corners" style="color: white;" /></td></tr>
+<tr><td colspan="2" align="right"><input type="submit" value="Update Book" class="rounded-corners" style="color: white;" /></td></tr>
 </table>
 </form>
 {% else %}

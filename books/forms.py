@@ -59,8 +59,9 @@ class BookForm(forms.ModelForm):
         rand_int = random.randint(1,99)
         if self.cleaned_data['image']:
             image = self.cleaned_data['image']
-            image.image = self.cleaned_data['new_image']
-            image.save()
+            if self.cleaned_data['new_image']:                
+                image.image = self.cleaned_data['new_image']
+                image.save()
             self.cleaned_data['image'] = image
         else:
             new_photo = Photo(image=self.cleaned_data['new_image'],
