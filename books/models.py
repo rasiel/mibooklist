@@ -3,6 +3,7 @@ from mibooklist.sellers.models import Seller
 from photologue.models import Photo
 
 DISTRICT_CHOICES = (
+    ('', '--Select--'),
     ('CZ', 'Corozal'),
     ('OW', 'Orange Walk'),
     ('BZ', 'Belize'),

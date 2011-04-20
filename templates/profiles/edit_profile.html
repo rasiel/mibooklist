@@ -1,6 +1,7 @@
 {% extends "sellers/profile.html" %}
 {% block title %}Edit Your Profile{% endblock %}
 {% block content %}
+{% if profile.account_status == 'AC' %}
 <h1>Edit Your Profile:</h1>
 <h2>Click Here to <a href="/accounts/password/change/">Change Password</a></h2>
 <form action="." method="POST">
@@ -44,4 +45,15 @@
 <tr><td colspan="2" align="right"><input type="submit" value="Update" style="color: white;" /></td></tr>
 </table>
 </form>
+{% else %}
+<br />
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">
+<strong>
+Your account is {{ profile.get_account_status_display }}. You cannot edit your account.
+</strong>
+</div>
+</div>
+<br />
+{% endif %}
 {% endblock %}

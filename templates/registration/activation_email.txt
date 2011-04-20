@@ -1,11 +1,11 @@
-Thank you for registering at {{ site }}.
+Thank you for registering at http://{{ site }}.
 
 The final step is to activate your account, to do so, please click on the below link:
 
-{{ site }}/accounts/activate/{{ activation_key }}
+http://{{ site }}/accounts/activate/{{ activation_key }}
 
 You have up to {{ expiration_days }} days to activate your account.
 
 Thank you,
 
-{{ site }} Team
+http://{{ site }} Team

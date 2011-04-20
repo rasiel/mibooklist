@@ -57,6 +57,8 @@ form ul li label {
 ul {
   margin-left: 10px;
   margin-top: 5px;
+  list-style-type: disc;
+  display: block;
 }
 
 ul li{
@@ -183,9 +185,8 @@ ul li{
   margin-right: auto;
   margin-top: 18px;
   padding: 5px;
-  background-image: url(../design_art/blue_bg.png);
   background-repeat: repeat-x;
-  background-color: #0358b0;
+  background-color: #81b9f2;
   color: white;
 }
 #content_wrapper h1 {

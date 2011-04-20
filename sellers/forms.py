@@ -62,7 +62,8 @@ class SupportForm(ContactForm):
         seller = Seller.objects.get(user=self.request.user.id)
         msg = SupportMessage(seller=seller, message=self.request.POST['body'])
         msg.save()
-        send_mail(fail_silently=fail_silently,)
+        self.recipient_list = ['support@mibooklist.com']
+        send_mail(fail_silently=fail_silently,**self.get_message_dict())
         
 
 

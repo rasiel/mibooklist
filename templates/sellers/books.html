@@ -18,6 +18,7 @@ $(document).ready(function() {
 </style>
 {% endblock %}
 {% block content %}
+{% if seller.account_status == 'AC' %}
 <h1>Welcome {% if seller.screen_name %}{{ seller.screen_name }}{% else %}{{ user.username }}{% endif %}, you have {{ user_book_count }} books listed.</h1>
 {% if books %}
 <div class="ui-widget">
@@ -63,6 +64,16 @@ sold.
 <div class="ui-state-error ui-corner-all" style="padding: 5px;">
 <strong>
 You have not added any books as yet.
+</strong>
+</div>
+</div>
+<br />
+{% endif %}
+{% else %}
+<div class="ui-widget">
+<div class="ui-state-error ui-corner-all" style="padding: 5px;">
+<strong>
+Your account is {{ seller.get_account_status_display }}. You cannot view/edit Books.
 </strong>
 </div>
 </div>

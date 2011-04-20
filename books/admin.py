@@ -7,6 +7,8 @@ class BookAdmin(admin.ModelAdmin):
         ('Book Details', {'fields': ['description', 'school', 'course', 'location', 'district', 'condition', 'price', 'image', 'comments'], 'classes': ['collapse']}),
     ]
     prepopulated_fields = {'slug_url': ('title',)}
-    list_display = ('seller', 'title', 'isbn', 'author', 'edition', 'revision')
+    list_display = ('title', 'seller', 'isbn', 'author', 'edition', 'revision')
+    list_filter = ('seller', 'district', 'condition')
+    search_fields = ('title', 'description')
 
 admin.site.register(Book, BookAdmin)

@@ -3,6 +3,8 @@ from books.models import Book, DISTRICT_CHOICES, CONDITION_CHOICES
 from datetime import datetime
 from django.views.generic.create_update import delete_object
 from django.contrib.auth.models import User
+from sellers.models import Seller
+from photologue.models import Photo
 
 def index(request):
     books = Book.objects.all().order_by('-created')[:6]
@@ -63,6 +65,12 @@ def sort(request):
     return simple.direct_to_template(request, template='books/book_list.html', extra_context={'object_list': books, 'districts': DISTRICT_CHOICES, 'conditions': CONDITION_CHOICES, 'searchterm': term})
 
 def delete_user(request, id):
+    profile = Seller.objects.get(user__id = id)
+    books = Book.objects.filter(seller=profile)
+    for book in books:
+        if book.image:
+            image = Photo.objects.get(pk=book.image.id)
+            image.delete()
     return delete_object(
         request,
         model = User,

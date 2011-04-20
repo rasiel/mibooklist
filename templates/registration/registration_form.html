@@ -4,8 +4,11 @@
 {% block content %}
 <h1>Signup to add a Book</h1>
 <div class="ui-widget">
-<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">Account is for 1 yr and expires on date, will need to be renewed in order to
-continue.</div>
+<div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
+Your account will be valid for one year and will expire one year from 
+your sign up date, in order to continue using this service, you'll need 
+to renew.
+</div>
 </div>
 <br />
 <form name="register" id="registration_form" method="post" action="/accounts/register/">
@@ -22,6 +25,7 @@ continue.</div>
   <td>{{ field }} {{ field.errors }} {{ field.help_text }}</td>
 </tr>
 {% endfor %}
+<tr><td colspan=2><a href="/pages/terms/" target="_blank" style="color: white">Click to Read Terms of Service</a></td></tr>
   <tr><td colspan=2 align=right>
   <input type="submit" name="submit_register" id="submit_register" value="Register" /></td></tr>
 </table>        

@@ -77,6 +77,9 @@ def activate(request, backend,
     account = backend.activate(request, **kwargs)
 
     if account:
+        profile = account.get_profile()
+        profile.account_status = 'PP'
+        profile.save()
         if success_url is None:
             to, args, kwargs = backend.post_activation_redirect(request, account)
             return redirect(to, *args, **kwargs)
@@ -187,6 +190,9 @@ def register(request, backend, success_url=None, form_class=myRegistrationForm,
         form = form_class(data=request.POST, files=request.FILES)
         if form.is_valid():
             new_user = backend.register(request, **form.cleaned_data)
+            new_user.first_name = request.POST['first_name']
+            new_user.last_name = request.POST['last_name']
+            new_user.save()
             request.user = new_user
             new_profile = create_profile(request)
             if success_url is None:

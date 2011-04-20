@@ -49,7 +49,8 @@ def add(request):
 
     return render_to_response('books/book_form.html', {
         'form': form,
-        'can_add_book': can_add_book
+        'can_add_book': can_add_book,
+        'seller': seller
     },context_instance=RequestContext(request))
 
 @login_required

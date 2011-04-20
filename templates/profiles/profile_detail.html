@@ -13,6 +13,7 @@ Is Hidden? {% if profile.hide_phone %}Yes{% else %}No{% endif %}</td></tr>
 Is Hidden? {% if profile.hide_cellular %}Yes{% else %}No{% endif %}
 </td></tr>
 <tr><td>Signup Date:</td><td>{{ profile.signup_date|date:"d M Y"}}</td></tr>
+<tr><td>Expiration Date:</td><td>{{ profile.signup_date|date:"d M" }} {{ profile.signup_date|date:"Y"|add:"1" }}</td>
 <tr><td>Account Status:</td><td>{{profile.get_account_status_display}}</td></tr>
 <tr><td>Payment Option:</td><td>{{ profile.get_payment_option_display}}</td></tr>
 </table>

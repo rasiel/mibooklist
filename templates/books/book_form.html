@@ -24,8 +24,8 @@
 {% else %}
 <div class="ui-widget">
 <div class="ui-state-error ui-corner-all" style="padding: 5px;">
-Your account is <strong>INACTIVE</strong>.  
-Please <a href="/accounts/profile/">Activate</a> your account to <strong>Add a Book</strong>.
+Your account is <strong>{{ seller.get_account_status_display }}</strong>.  
+Please make <a href="/accounts/profile/">Payment</a> for your account to be able to <strong>Add a Book</strong>.
 </div>
 </div>
 <br />

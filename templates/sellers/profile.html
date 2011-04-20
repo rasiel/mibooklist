@@ -17,15 +17,15 @@ pending validation. Please send us your payment information to payments@mibookli
 </div>
 <br />
 {% endifequal %}
-{% ifequal seller.account_status 'PP' %}
+{% if seller.account_status != 'AC' %}
 <div class="ui-widget">
 <div class="ui-state-error ui-corner-all" style="padding: 5px;">
-Your Account is <strong>pending payment</strong>. 
-Please make your payment.
+Your Account is <strong>{{ seller.get_account_status_display }}</strong>. 
+Please make your payment of $15 usd / $30bz.
 </div>
 </div>
 <br />
-{% endifequal %}
+{% endif %}
 {% ifequal seller.payment_option 'GC' %}
 <div class="ui-widget">
 <div class="ui-state-highlight ui-corner-all" style="padding: 5px;">
